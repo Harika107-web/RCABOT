@@ -4,7 +4,13 @@ const RcaBot = () => {
     const [apiUrl, setApiUrl] = useState('');
     const [jsonBody, setJsonBody] = useState('');
     const [apiResponse, setApiResponse] = useState(null);
-    
+    const textAreaStyle = {
+        whiteSpace: 'pre-wrap',        // CSS property to make spaces and line breaks
+        overflowWrap: 'break-word',   // CSS property to break words
+        wordWrap: 'break-word',       // CSS property to break words
+        width: '800px',               // Width of the text area
+        height: '300px'               // Height of the text area
+      };
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -21,9 +27,9 @@ const RcaBot = () => {
             }
 
             // If the response was ok, get the result
-            const result = await response.json();
+            var result = await response.json();
 
-            setApiResponse(JSON.stringify(result));
+            setApiResponse((result.response));
 
         } catch (error) {
             console.error('Something went wrong!', error);
@@ -47,7 +53,7 @@ const RcaBot = () => {
                     onChange={(event) => setApiUrl(event.target.value)}
                     placeholder="API URL" 
                 />
-                <textarea  style={{ width: "100%",
+                <textarea  style={{ width: "100%", height:"200px",
   padding: "12px 20px",
   margin: "8px 0",
   "box-sizing": "border-box",
@@ -79,7 +85,7 @@ const RcaBot = () => {
             </form>
             <div>
                 <h2>API Response:</h2>
-                <pre>{apiResponse}</pre>
+                <textarea style={textAreaStyle} value={apiResponse}></textarea>
             </div>
         </div>
     );
